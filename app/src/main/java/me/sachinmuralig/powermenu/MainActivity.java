@@ -23,7 +23,6 @@ public class MainActivity extends Activity {
     FooterElementGenerator footerElementGenerator;
 
     Actions actions;
-    AudioManager am;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +31,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         actions = new Actions(this);
-        am = (AudioManager)getBaseContext().getSystemService(Context.AUDIO_SERVICE);
 
         addMainElements();
         addFooterElements();
@@ -110,8 +108,7 @@ public class MainActivity extends Activity {
         silent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                Toast.makeText(getApplicationContext(),"Silent Mode Activated",Toast.LENGTH_SHORT).show();
+                actions.ringerSilent();
                 MainActivity.this.finish();
             }
         });
@@ -120,8 +117,7 @@ public class MainActivity extends Activity {
         vibrate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                am.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                Toast.makeText(getApplicationContext(),"Vibration Mode Activated",Toast.LENGTH_SHORT).show();
+                actions.ringerVibrate();
                 MainActivity.this.finish();
             }
         });
@@ -130,8 +126,7 @@ public class MainActivity extends Activity {
         normal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                Toast.makeText(getApplicationContext(),"Normal Mode Activated",Toast.LENGTH_SHORT).show();
+                actions.ringerNormal();
                 MainActivity.this.finish();
             }
         });

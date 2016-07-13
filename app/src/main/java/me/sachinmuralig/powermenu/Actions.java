@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.Settings;
@@ -23,6 +24,8 @@ import eu.chainfire.libsuperuser.Shell;
 
 public class Actions {
     Context context;
+    AudioManager am;
+
     protected static final String COMMAND_SHUTDOWN_BROADCAST = "am broadcast android.intent.action.ACTION_SHUTDOWN";
     protected static final String COMMAND_SHUTDOWN = "reboot -p";
     protected static final String COMMAND_REBOOT = "reboot";
@@ -35,6 +38,7 @@ public class Actions {
 
     Actions(Context context){
         this.context = context;
+        am = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
     }
 
     public static boolean isRooted(){
@@ -101,11 +105,26 @@ public class Actions {
             return;
         }
         if(isFlightModeOn()) {
+            showToast("Exiting Flight Mode...",Toast.LENGTH_SHORT);
             (new BackgroundTask(new String[]{COMMAND_FLIGHT_MODE_OFF,COMMAND_FLIGHT_MODE_BROADCAST_OFF})).execute();
         }
         else{
+            showToast("Entering Flight Mode...",Toast.LENGTH_SHORT);
             (new BackgroundTask(new String[]{COMMAND_FLIGHT_MODE_ON,COMMAND_FLIGHT_MODE_BROADCAST_OFF})).execute();
         }
+    }
+
+    public void ringerSilent(){
+        am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+        //showToast("Silent Mode Activated",Toast.LENGTH_SHORT);
+    }
+    public void ringerVibrate(){
+        am.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+        //showToast("Vibration Mode Activated",Toast.LENGTH_SHORT);
+    }
+    public void ringerNormal(){
+        am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+        //showToast("Normal Mode Activated",Toast.LENGTH_SHORT);
     }
 
 

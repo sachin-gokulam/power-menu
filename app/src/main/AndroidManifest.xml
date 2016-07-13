@@ -13,8 +13,31 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
+        <receiver android:name=".FullWidgetProvider" android:label="Power and Ringer">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.media.RINGER_MODE_CHANGED"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/full_widget"/>
+        </receiver>
+
+        <receiver android:name=".RingerWidgetProvider" android:label="Ringer">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.media.RINGER_MODE_CHANGED"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/ringer_widget"/>
+        </receiver>
+
+
     </application>
+
 
 </manifest>
