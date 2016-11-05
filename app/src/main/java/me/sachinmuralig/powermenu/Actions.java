@@ -110,7 +110,7 @@ public class Actions {
         }
         else{
             showToast("Entering Flight Mode...",Toast.LENGTH_SHORT);
-            (new BackgroundTask(new String[]{COMMAND_FLIGHT_MODE_ON,COMMAND_FLIGHT_MODE_BROADCAST_OFF})).execute();
+            (new BackgroundTask(new String[]{COMMAND_FLIGHT_MODE_ON,COMMAND_FLIGHT_MODE_BROADCAST_ON})).execute();
         }
     }
 
